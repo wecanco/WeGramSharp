@@ -1,0 +1,9 @@
+D:\Projects\WeGram\WeGram\bin\Debug\WeGram.exe.config
+D:\Projects\WeGram\WeGram\bin\Debug\WeGram.exe
+D:\Projects\WeGram\WeGram\bin\Debug\WeGram.pdb
+D:\Projects\WeGram\WeGram\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Projects\WeGram\WeGram\obj\Debug\WindowsFormsApplication1.Main.resources
+D:\Projects\WeGram\WeGram\obj\Debug\WeGram.Properties.Resources.resources
+D:\Projects\WeGram\WeGram\obj\Debug\WeGram.csproj.GenerateResource.Cache
+D:\Projects\WeGram\WeGram\obj\Debug\WeGram.exe
+D:\Projects\WeGram\WeGram\obj\Debug\WeGram.pdb
