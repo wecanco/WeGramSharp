@@ -7,3 +7,13 @@ D:\Projects\WeGram\WeGram\obj\Debug\WeGram.Properties.Resources.resources
 D:\Projects\WeGram\WeGram\obj\Debug\WeGram.csproj.GenerateResource.Cache
 D:\Projects\WeGram\WeGram\obj\Debug\WeGram.exe
 D:\Projects\WeGram\WeGram\obj\Debug\WeGram.pdb
+D:\Projects\WeGram\WeGramSharp\WeGram\bin\Debug\WeGram.exe.config
+D:\Projects\WeGram\WeGramSharp\WeGram\obj\Debug\WeGram.exe
+D:\Projects\WeGram\WeGramSharp\WeGram\obj\Debug\WeGram.pdb
+D:\Projects\WeGram\WeGramSharp\WeGram\bin\Debug\WeGram.exe
+D:\Projects\WeGram\WeGramSharp\WeGram\bin\Debug\WeGram.pdb
+D:\Projects\WeGram\WeGramSharp\WeGram\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Projects\WeGram\WeGramSharp\WeGram\obj\Debug\WeGram.csprojResolveAssemblyReference.cache
+D:\Projects\WeGram\WeGramSharp\WeGram\obj\Debug\WindowsFormsApplication1.Main.resources
+D:\Projects\WeGram\WeGramSharp\WeGram\obj\Debug\WeGram.Properties.Resources.resources
+D:\Projects\WeGram\WeGramSharp\WeGram\obj\Debug\WeGram.csproj.GenerateResource.Cache

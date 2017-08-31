@@ -32,6 +32,10 @@ using org.telegram.api.user;
 using System.Text;
 using System.Diagnostics;
 using org.telegram.api.updates;
+using org.telegram.api.messages.dialogs;
+using System.Linq;
+using org.telegram.api.chat.channel;
+using org.telegram.api.chat;
 /************************************/
 // گروه نرم افزاری وی کن
 // Telegram: @WeCanCo
@@ -66,8 +70,8 @@ namespace WindowsFormsApplication1
         public string AppVer = "1.0";
         public string Lang = "fa";
 
-        private  int APIKEY = 6; // your api key
-        private   string APIHASH = "eb06d4abfb49dc3eeb1aeb98ae0f581e"; // your api hash                                                       
+        private  int APIKEY = 185606; // your api key
+        private  string APIHASH = "c7351fb30842b4abb27c72e5e1680506"; // your api hash                                                       
 
         public bool IsConnected = false;
         
@@ -108,7 +112,7 @@ namespace WindowsFormsApplication1
                             NotifyBar.ForeColor = Color.Red;
                             ConnectB.BackColor = Color.LightGray;
                             ConnectB.Text = "اتصال";
-                            textBox3.Enabled = false;
+                            MessageTB.Enabled = false;
                             button3.Enabled = false;
                         }
                         catch (RpcException ex)
@@ -138,7 +142,7 @@ namespace WindowsFormsApplication1
                                 NotifyBar.ForeColor = Color.Green;
                                 ConnectB.BackColor = Color.Red;
                                 ConnectB.Text = "قطع اتصال";
-                                textBox3.Enabled = true;
+                                MessageTB.Enabled = true;
                                 button3.Enabled = true;
                                 VerfyCodeB.Enabled = false;
                                 VerfyCodeT.Enabled = false;
@@ -212,7 +216,7 @@ namespace WindowsFormsApplication1
                 NotifyBar.ForeColor = Color.Green;
                 ConnectB.BackColor = Color.Red;
                 ConnectB.Text = "قطع اتصال";
-                textBox3.Enabled = true;
+                MessageTB.Enabled = true;
                 button3.Enabled = true;
                 VerfyCodeB.Enabled = false;
                 VerfyCodeT.Enabled = false;
@@ -228,11 +232,6 @@ namespace WindowsFormsApplication1
         }
 
         private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
         {
 
         }
@@ -351,50 +350,57 @@ namespace WindowsFormsApplication1
                 Random rand = new Random();
 
                 string search = textBox1.Text.Trim().Replace("@", "").Replace("+","").Replace(" ","").ToLower();
-                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                TLInputPeerUser Puser = new TLInputPeerUser();
+                TLUser user  = SearchContact(search);
+                if (user == null)
                 {
-                    if (search == (dataGridView1[1, i].Value + "").ToLower() || search == (dataGridView1[2, i].Value + "").ToLower())
+                    TLContactsFound ChBot = SearchBotOrChannel(search);
+                    if (ChBot != null)
                     {
-                        iuser = new TLInputPeerUser();
-                        iuser.setUserId(Convert.ToInt32(dataGridView1[3, i].Value + ""));
-                        iuser.setAccessHash(Convert.ToInt64(dataGridView1[4, i].Value + ""));
-
-                        TLRequestMessagesSendMessage req = new TLRequestMessagesSendMessage();
-                        req.setPeer(iuser);
-                        req.setMessage(textBox3.Text);
-                        req.setRandomId(rand.Next());
-                        /*
-                        TLRequestChannelsCreateChannel ch = new TLRequestChannelsCreateChannel();
-                        ch.setTitle("title");
-                        ch.setAbout("about");
-                        TLUpdates res = (TLUpdates)Api.doRpcCall(ch);
-                        
-                        TLInputChannel chan = new TLInputChannel();
-                        chan.setAccessHash(??????);
-                        chan.setChannelId(???????);
-                        TLRequestChannelsUpdateUsername upu = new TLRequestChannelsUpdateUsername();
-                        upu.setChannel(chan);
-                        upu.setUsername("username");
-                        TLUpdates res2 = (TLUpdates)Api.doRpcCall(upu);
-                        */
-
-
-                        try
+                        foreach (TLUser us in ChBot.getUsers())
                         {
-                            TLUpdates res = (TLUpdates)Api.doRpcCall(req);
-                            //MessageBox.Show(string.Join(",", res));
-                            NotifyBar.Text = "پیام به " + dataGridView1[1, i].Value + " (" + dataGridView1[2, i].Value + ") ارسال شد.";
-                            NotifyBar.ForeColor = Color.Green;
-
+                            Puser.setAccessHash(us.getAccessHash());
+                            Puser.setUserId(us.getId());
+                            search = us.getUserName();
+                            if (search == null || search == "")
+                            {
+                                search = us.getFirstName() + " " + us.getLastName();
+                            }
+                            break;
                         }
-                        catch (Exception ex)
-                        {
-                            NotifyBar.Text = "خطا: " + ex.Message;
-                            NotifyBar.ForeColor = Color.Red;
-                        }
-
-                        break;
+                    
                     }
+                }
+                else {
+                    Puser.setAccessHash(user.getAccessHash());
+                    Puser.setUserId(user.getId());
+                    search = user.getUserName();
+                    if (search==null || search == "")
+                    {
+                        search = user.getFirstName() + " " + user.getLastName();
+                    }
+                }
+                
+                
+
+                TLRequestMessagesSendMessage req = new TLRequestMessagesSendMessage();
+                req.setRandomId(rand.Next());
+                req.setPeer(Puser);
+                req.setMessage(MessageTB.Text);
+               
+
+                try
+                {
+                    TLUpdates res = (TLUpdates)Api.doRpcCall(req);
+                    //MessageBox.Show(string.Join(",", res));
+                    NotifyBar.Text = "پیام به " + search + " ارسال شد.";
+                    NotifyBar.ForeColor = Color.Green;
+
+                }
+                catch (Exception ex)
+                {
+                    NotifyBar.Text = "خطا: " + ex.Message;
+                    NotifyBar.ForeColor = Color.Red;
                 }
 
 
@@ -406,25 +412,7 @@ namespace WindowsFormsApplication1
         {
            
 
-            TLRequestContactsGetContacts req = new TLRequestContactsGetContacts();
-            req.setHash(""); 
-            var res = NewApi.Api().doRpcCall(req);
-            if (res == null)
-            {
-                NotifyBar.Text = "درخواست نتیجه ای نداشت!";
-                NotifyBar.ForeColor = Color.Orange;
-            }
-            else
-            {
-                dataGridView1.Rows.Clear();
-                TLContacts Contacts = (TLContacts)res;
-                foreach (TLUser contact in Contacts.getUsers())
-                {
-                    dataGridView1.Rows.Add(contact.getFirstName()+" "+contact.getLastName(), contact.getUserName(),contact.getPhone(), contact.getId(), contact.getAccessHash());
-                }
 
-            }
-            
            
 
         }
@@ -452,6 +440,230 @@ namespace WindowsFormsApplication1
         {
             MessageBox.Show("با کمک حداقلی،نقشی در توسعه این کتابخانه داشته باشید. کمک شما امیدی برای توسعه است.");
             System.Diagnostics.Process.Start("http://wecan-co.ir/payment");
+        }
+
+        private void GetContactsBT_Click(object sender, EventArgs e)
+        {
+            TLRequestContactsGetContacts req = new TLRequestContactsGetContacts();
+            req.setHash("");
+            var res = NewApi.Api().doRpcCall(req);
+            if (res == null)
+            {
+                NotifyBar.Text = "درخواست نتیجه ای نداشت!";
+                NotifyBar.ForeColor = Color.Orange;
+            }
+            else
+            {
+                ContactsDGV.Rows.Clear();
+                TLContacts Contacts = (TLContacts)res;
+                foreach (TLUser contact in Contacts.getUsers())
+                {
+                    ContactsDGV.Rows.Add(contact.getFirstName() + " " + contact.getLastName(), contact.getUserName(), contact.getPhone(), contact.getId(), contact.getAccessHash());
+                }
+
+            }
+
+        }
+
+
+
+        private void GetGroupsBT_Click(object sender, EventArgs e)
+        {
+            TLRequestMessagesGetDialogs req = new TLRequestMessagesGetDialogs();
+            req.setOffsetPeer(new TLInputPeerSelf());
+            req.setOffsetDate(0);
+            req.setLimit(1000);
+
+            var res = NewApi.Api().doRpcCall(req);
+            if (res == null)
+            {
+                NotifyBar.Text = "درخواست نتیجه ای نداشت!";
+                NotifyBar.ForeColor = Color.Orange;
+            }
+            else
+            {
+                GroupsDGV.Rows.Clear();
+                ChannelsDGV.Rows.Clear();
+                TLDialogs Dailogs = (TLDialogs)res;
+                var ChanGP = Dailogs.getChats().toArray()
+                        .Where(x => x.GetType() == typeof(TLChannel))
+                        .Cast<TLChannel>();
+
+                foreach (TLChannel chat in ChanGP)
+                {
+                    if ((chat.getId() + "").Substring(0, 3) != "100")
+                    {
+                        GroupsDGV.Rows.Add(chat.getTitle(), chat.getUsername(), chat.getId(), chat.getAccessHash());
+                    }
+                    else
+                    {
+                        ChannelsDGV.Rows.Add(chat.getTitle(), chat.getUsername(), chat.getId(), chat.getAccessHash());
+                    }
+                }
+
+            }
+        }
+
+        private void GroupsDGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int chID = Convert.ToInt32(GroupsDGV[2, GroupsDGV.CurrentCell.RowIndex].Value+"");
+            long access = Convert.ToInt64(GroupsDGV[3, GroupsDGV.CurrentCell.RowIndex].Value + "");
+            GetChannelMessages(chID, access);
+        }
+
+        private void GetChannelMessages(int ChannelId, long AccessHash)
+        {
+            TLInputPeerChannel peer = new TLInputPeerChannel();
+            peer.setAccessHash(AccessHash);
+            peer.setChannelId(ChannelId);
+            
+            TLRequestMessagesGetHistory reqH = new TLRequestMessagesGetHistory();
+            reqH.setAddOffset(0);
+            reqH.setLimit(100);
+            reqH.setOffsetId(0);
+            reqH.setOffsetDate(0);
+            reqH.setMinId(0);
+            reqH.setMaxId(999999);
+            reqH.setPeer(peer);
+
+            var res = NewApi.Api().doRpcCall(reqH);
+            if (res == null)
+            {
+                NotifyBar.Text = "درخواست نتیجه ای نداشت!";
+                NotifyBar.ForeColor = Color.Orange;
+            }
+            else
+            {
+                MessagesDGV.Rows.Clear();
+                TLChannelMessages Messages = (TLChannelMessages)res;
+
+                foreach (var msg in Messages.getMessages())
+                {
+                    try
+                    {
+                        TLMessage message = (TLMessage)msg;
+                        MessagesDGV.Rows.Add(message.getDate(), message.getId(), message.getMessage());
+                    }
+                    catch { }
+                }
+
+            }
+
+        }
+
+        private void ChannelsDGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int chID = Convert.ToInt32(ChannelsDGV[2, ChannelsDGV.CurrentCell.RowIndex].Value + "");
+            long access = Convert.ToInt64(ChannelsDGV[3, ChannelsDGV.CurrentCell.RowIndex].Value + "");
+            GetChannelMessages(chID, access);
+        }
+
+
+        private void GetContactMessages(int uID, long uAccess)
+        {
+            TLInputPeerUser peer = new TLInputPeerUser();
+            peer.setAccessHash(uAccess);
+            peer.setUserId(uID);
+            
+            TLRequestMessagesGetHistory reqH = new TLRequestMessagesGetHistory();
+            reqH.setAddOffset(0);
+            reqH.setLimit(100);
+            reqH.setOffsetId(0);
+            reqH.setOffsetDate(0);
+            reqH.setMinId(0);
+            reqH.setMaxId(999999);
+            reqH.setPeer(peer);
+
+            var res = NewApi.Api().doRpcCall(reqH);
+            if (res == null)
+            {
+                NotifyBar.Text = "درخواست نتیجه ای نداشت!";
+                NotifyBar.ForeColor = Color.Orange;
+            }
+            else
+            {
+                MessagesDGV.Rows.Clear();
+
+                try
+                {
+                    TLMessages Messages = (TLMessages)res;
+                    foreach (var msg in Messages.getMessages())
+                    {
+                        try
+                        {
+                            TLMessage message = (TLMessage)msg;
+                            MessagesDGV.Rows.Add(message.getDate(), message.getId(), message.getMessage());
+                        }
+                        catch {}
+                    }
+                }
+                catch
+                {
+                    TLMessagesSlice Messages = (TLMessagesSlice)res;
+                    foreach (var msg in Messages.getMessages())
+                    {
+                        try
+                        {
+                            TLMessage message = (TLMessage)msg;
+                            MessagesDGV.Rows.Add(message.getDate(), message.getId(), message.getMessage());
+                        }
+                        catch{ }
+                    }
+                }
+
+            }
+
+        }
+
+        private void ContactsDGV_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int chID = Convert.ToInt32(ContactsDGV[3, ContactsDGV.CurrentCell.RowIndex].Value + "");
+            long access = Convert.ToInt64(ContactsDGV[4, ContactsDGV.CurrentCell.RowIndex].Value + "");
+            GetContactMessages(chID, access);
+        }
+
+        private void ChatsDGV_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int chID = Convert.ToInt32(ChatsDGV[3, ChatsDGV.CurrentCell.RowIndex].Value + "");
+            long access = Convert.ToInt64(ChatsDGV[4, ChatsDGV.CurrentCell.RowIndex].Value + "");
+            GetContactMessages(chID, access);
+        }
+
+        private void GetChatsBT_Click(object sender, EventArgs e)
+        {
+            TLRequestMessagesGetDialogs req = new TLRequestMessagesGetDialogs();
+            req.setOffsetPeer(new TLInputPeerSelf());
+            req.setOffsetDate(0);
+            req.setLimit(1000);
+
+            var res = NewApi.Api().doRpcCall(req);
+            if (res == null)
+            {
+                NotifyBar.Text = "درخواست نتیجه ای نداشت!";
+                NotifyBar.ForeColor = Color.Orange;
+            }
+            else
+            {
+                ChatsDGV.Rows.Clear();
+                TLDialogs Dailogs = (TLDialogs)res;
+                /*
+                var Chats = Dailogs.getChats().toArray()
+                        .Where(x => x.GetType() == typeof(TLUser))
+                        .Cast<TLUser>();
+                  */
+
+                foreach (TLUser user in Dailogs.getUsers())
+                {
+                    ChatsDGV.Rows.Add(user.getFirstName() + " " + user.getLastName(), user.getUserName(), user.getPhone(), user.getId(), user.getAccessHash());
+                }
+
+            }
+
+        }
+
+        private void MessagesDGV_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            MessageBOx.Text = MessagesDGV[2, MessagesDGV.CurrentCell.RowIndex].Value + "";
         }
     }
 }
