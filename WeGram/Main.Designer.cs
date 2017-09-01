@@ -52,9 +52,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.MessagesDGV = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ChannelsDGV = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,9 +73,16 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.SendMessageB = new System.Windows.Forms.Button();
             this.MessageTB = new System.Windows.Forms.TextBox();
             this.MessageBOx = new System.Windows.Forms.TextBox();
+            this.ForwardB = new System.Windows.Forms.Button();
+            this.ForwardTB = new System.Windows.Forms.TextBox();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -321,31 +325,15 @@
             this.MessagesDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn13});
+            this.dataGridViewTextBoxColumn13,
+            this.Column6,
+            this.Column7});
             this.MessagesDGV.Location = new System.Drawing.Point(8, 193);
             this.MessagesDGV.Name = "MessagesDGV";
             this.MessagesDGV.ReadOnly = true;
             this.MessagesDGV.Size = new System.Drawing.Size(307, 218);
             this.MessagesDGV.TabIndex = 43;
             this.MessagesDGV.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.MessagesDGV_CellEnter);
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "تاریخ";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "کد";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "پیام";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.ReadOnly = true;
             // 
             // ChannelsDGV
             // 
@@ -499,24 +487,26 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.ForwardB);
+            this.tabPage2.Controls.Add(this.ForwardTB);
             this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.button3);
+            this.tabPage2.Controls.Add(this.SendMessageB);
             this.tabPage2.Controls.Add(this.MessageTB);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(692, 530);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "ارسال پیام";
+            this.tabPage2.Text = "ارسال/فوروارد پیام";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(373, 6);
+            this.textBox1.Location = new System.Drawing.Point(6, 6);
             this.textBox1.Name = "textBox1";
             this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox1.Size = new System.Drawing.Size(249, 21);
+            this.textBox1.Size = new System.Drawing.Size(616, 21);
             this.textBox1.TabIndex = 35;
             // 
             // label3
@@ -528,25 +518,25 @@
             this.label3.TabIndex = 34;
             this.label3.Text = "گیرنده پیام:";
             // 
-            // button3
+            // SendMessageB
             // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(373, 33);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(249, 62);
-            this.button3.TabIndex = 32;
-            this.button3.Text = "ارسال پیام";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.SendMessageB.Enabled = false;
+            this.SendMessageB.Location = new System.Drawing.Point(310, 128);
+            this.SendMessageB.Name = "SendMessageB";
+            this.SendMessageB.Size = new System.Drawing.Size(312, 41);
+            this.SendMessageB.TabIndex = 32;
+            this.SendMessageB.Text = "ارسال پیام";
+            this.SendMessageB.UseVisualStyleBackColor = true;
+            this.SendMessageB.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // MessageTB
             // 
             this.MessageTB.Enabled = false;
-            this.MessageTB.Location = new System.Drawing.Point(6, 6);
+            this.MessageTB.Location = new System.Drawing.Point(310, 33);
             this.MessageTB.Multiline = true;
             this.MessageTB.Name = "MessageTB";
             this.MessageTB.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.MessageTB.Size = new System.Drawing.Size(361, 89);
+            this.MessageTB.Size = new System.Drawing.Size(312, 89);
             this.MessageTB.TabIndex = 31;
             // 
             // MessageBOx
@@ -557,6 +547,59 @@
             this.MessageBOx.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.MessageBOx.Size = new System.Drawing.Size(307, 105);
             this.MessageBOx.TabIndex = 49;
+            // 
+            // ForwardB
+            // 
+            this.ForwardB.Location = new System.Drawing.Point(6, 128);
+            this.ForwardB.Name = "ForwardB";
+            this.ForwardB.Size = new System.Drawing.Size(298, 41);
+            this.ForwardB.TabIndex = 37;
+            this.ForwardB.Text = "فوروارد پیام";
+            this.ForwardB.UseVisualStyleBackColor = true;
+            this.ForwardB.Click += new System.EventHandler(this.ForwardB_Click);
+            // 
+            // ForwardTB
+            // 
+            this.ForwardTB.Enabled = false;
+            this.ForwardTB.Location = new System.Drawing.Point(6, 33);
+            this.ForwardTB.Multiline = true;
+            this.ForwardTB.Name = "ForwardTB";
+            this.ForwardTB.ReadOnly = true;
+            this.ForwardTB.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ForwardTB.Size = new System.Drawing.Size(298, 89);
+            this.ForwardTB.TabIndex = 36;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "تاریخ";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "کد";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "پیام";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "peerID";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Visible = false;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "peerAccess";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Visible = false;
             // 
             // Main
             // 
@@ -618,7 +661,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button SendMessageB;
         private System.Windows.Forms.TextBox MessageTB;
         private System.Windows.Forms.DataGridView MessagesDGV;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
@@ -630,9 +673,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView ChatsDGV;
@@ -643,6 +683,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.Button GetChatsBT;
         private System.Windows.Forms.TextBox MessageBOx;
+        private System.Windows.Forms.Button ForwardB;
+        private System.Windows.Forms.TextBox ForwardTB;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
     }
 }
 
