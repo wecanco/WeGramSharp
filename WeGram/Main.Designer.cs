@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ConnectB = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.MessageBOx = new System.Windows.Forms.TextBox();
             this.ChatsDGV = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +53,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.MessagesDGV = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ChannelsDGV = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,18 +77,13 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GetContactsBT = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ForwardB = new System.Windows.Forms.Button();
+            this.ForwardTB = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.SendMessageB = new System.Windows.Forms.Button();
             this.MessageTB = new System.Windows.Forms.TextBox();
-            this.MessageBOx = new System.Windows.Forms.TextBox();
-            this.ForwardB = new System.Windows.Forms.Button();
-            this.ForwardTB = new System.Windows.Forms.TextBox();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -152,6 +153,7 @@
             this.button2.TabIndex = 31;
             this.button2.Text = "کمک مالی";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
             // 
             // PhoneNumT
             // 
@@ -231,6 +233,15 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "مخاطبان/گروه ها/کانالها";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // MessageBOx
+            // 
+            this.MessageBOx.Location = new System.Drawing.Point(8, 417);
+            this.MessageBOx.Multiline = true;
+            this.MessageBOx.Name = "MessageBOx";
+            this.MessageBOx.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.MessageBOx.Size = new System.Drawing.Size(307, 105);
+            this.MessageBOx.TabIndex = 49;
             // 
             // ChatsDGV
             // 
@@ -334,6 +345,38 @@
             this.MessagesDGV.Size = new System.Drawing.Size(307, 218);
             this.MessagesDGV.TabIndex = 43;
             this.MessagesDGV.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.MessagesDGV_CellEnter);
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "تاریخ";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "کد";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "پیام";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "peerID";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Visible = false;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "peerAccess";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Visible = false;
             // 
             // ChannelsDGV
             // 
@@ -487,6 +530,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.ForwardB);
             this.tabPage2.Controls.Add(this.ForwardTB);
             this.tabPage2.Controls.Add(this.textBox1);
@@ -500,6 +544,37 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ارسال/فوروارد پیام";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(182, 196);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(298, 41);
+            this.button1.TabIndex = 38;
+            this.button1.Text = "فوروارد پیام";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // ForwardB
+            // 
+            this.ForwardB.Location = new System.Drawing.Point(6, 128);
+            this.ForwardB.Name = "ForwardB";
+            this.ForwardB.Size = new System.Drawing.Size(298, 41);
+            this.ForwardB.TabIndex = 37;
+            this.ForwardB.Text = "فوروارد پیام";
+            this.ForwardB.UseVisualStyleBackColor = true;
+            this.ForwardB.Click += new System.EventHandler(this.ForwardB_Click);
+            // 
+            // ForwardTB
+            // 
+            this.ForwardTB.Enabled = false;
+            this.ForwardTB.Location = new System.Drawing.Point(6, 33);
+            this.ForwardTB.Multiline = true;
+            this.ForwardTB.Name = "ForwardTB";
+            this.ForwardTB.ReadOnly = true;
+            this.ForwardTB.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ForwardTB.Size = new System.Drawing.Size(298, 89);
+            this.ForwardTB.TabIndex = 36;
             // 
             // textBox1
             // 
@@ -538,68 +613,6 @@
             this.MessageTB.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.MessageTB.Size = new System.Drawing.Size(312, 89);
             this.MessageTB.TabIndex = 31;
-            // 
-            // MessageBOx
-            // 
-            this.MessageBOx.Location = new System.Drawing.Point(8, 417);
-            this.MessageBOx.Multiline = true;
-            this.MessageBOx.Name = "MessageBOx";
-            this.MessageBOx.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.MessageBOx.Size = new System.Drawing.Size(307, 105);
-            this.MessageBOx.TabIndex = 49;
-            // 
-            // ForwardB
-            // 
-            this.ForwardB.Location = new System.Drawing.Point(6, 128);
-            this.ForwardB.Name = "ForwardB";
-            this.ForwardB.Size = new System.Drawing.Size(298, 41);
-            this.ForwardB.TabIndex = 37;
-            this.ForwardB.Text = "فوروارد پیام";
-            this.ForwardB.UseVisualStyleBackColor = true;
-            this.ForwardB.Click += new System.EventHandler(this.ForwardB_Click);
-            // 
-            // ForwardTB
-            // 
-            this.ForwardTB.Enabled = false;
-            this.ForwardTB.Location = new System.Drawing.Point(6, 33);
-            this.ForwardTB.Multiline = true;
-            this.ForwardTB.Name = "ForwardTB";
-            this.ForwardTB.ReadOnly = true;
-            this.ForwardTB.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ForwardTB.Size = new System.Drawing.Size(298, 89);
-            this.ForwardTB.TabIndex = 36;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "تاریخ";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "کد";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "پیام";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "peerID";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Visible = false;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "peerAccess";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Visible = false;
             // 
             // Main
             // 
@@ -690,6 +703,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.Button button1;
     }
 }
 

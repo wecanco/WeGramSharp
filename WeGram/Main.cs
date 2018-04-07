@@ -794,7 +794,7 @@ namespace WindowsFormsApplication1
                         try
                         {
                             //var res = Api.doRpcCall(req);
-                            var res = await WTask.Task.Run(() => Api.doRpcCall(req));
+                            var res = await WTask.Task.Run(() => NewApi.Api().doRpcCall(req));
                             notify = "پیام به " + search + " فوروارد شد.";
                             //NotifyBar.ForeColor = Color.Green;
 
@@ -835,9 +835,37 @@ namespace WindowsFormsApplication1
             return user;
         }
 
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+
+            TLInputPeerChannel from = new TLInputPeerChannel();
+            from.setAccessHash(2120444971788660000);
+            from.setChannelId(1007286733);
+
+            TLInputPeerSelf to = new TLInputPeerSelf();
 
 
+            TLIntVector ids = new TLIntVector();
+            ids.add(2061);
 
+            TLLongVector rands = new TLLongVector();
+            rands.add(986875756);
 
+            TLRequestMessagesForwardMessages fw = new TLRequestMessagesForwardMessages();
+            fw.setFromPeer(from);
+            fw.setToPeer(to);
+            fw.setId(ids);
+            fw.setRandomId(rands);
+
+            NewApi.Api().doRpcCall(fw);
+
+            
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            MessageBox.Show("با کمک حداقلی،نقشی در توسعه این کتابخانه داشته باشید. کمک شما امیدی برای توسعه است.");
+            System.Diagnostics.Process.Start("http://wecan-co.ir/payment");
+        }
     }
 }
